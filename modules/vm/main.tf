@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "${var.resource_group_name}-vm"
+  name                = "${var.resource_name}-vm"
   resource_group_name = var.resource_group_name
   location            = var.location
   size                = "Standard_B1s"
@@ -8,13 +8,15 @@ resource "azurerm_linux_virtual_machine" "vm" {
     var.network_interface_id
   ]
 
+  availability_set_id = var.availability_set_id
+
   admin_ssh_key {
     username   = "kiend"
     public_key = file("~/.ssh/id_rsa.pub")
   }
 
   os_disk {
-    name                 = "${var.resource_group_name}-osdisk"
+    name                 = "osdisk"
     caching              = "ReadWrite"
     storage_account_type = "StandardSSD_LRS"
   }
@@ -25,4 +27,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "22_04-lts-gen2"
     version   = "latest"
   }
+
+  custom_data = filebase64("./modules/vm/userdata.sh")
 }
