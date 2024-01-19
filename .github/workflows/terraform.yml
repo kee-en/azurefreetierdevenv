@@ -21,7 +21,7 @@ jobs:
       - name: Configure Azure CLI with Service Principal
         run: |
           az login --service-principal \
-            --user ${{ secrets.AZURE_CLIENT_ID }} \
+            --username ${{ secrets.AZURE_CLIENT_ID }} \
             --password ${{ secrets.AZURE_CLIENT_SECRET }} \
             --tenant ${{ secrets.AZURE_TENANT_ID }}
 
