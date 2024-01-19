@@ -9,6 +9,9 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
 
+    env:
+      SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,6 +25,9 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name:
+        run: echo "${SSH_PUBLIC_KEY}" > ~/.ssh/id_rsa.pub
 
       - name: Terraform Init
         run: terraform init
