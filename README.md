@@ -1,0 +1,1 @@
+[![Terraform Deployment](https://github.com/kee-en/azurefreetierdevenv/actions/workflows/terraform.yml/badge.svg?branch=main)](https://github.com/kee-en/azurefreetierdevenv/actions/workflows/terraform.yml)
