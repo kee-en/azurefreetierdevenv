@@ -32,13 +32,6 @@ jobs:
           echo "${SSH_PUBLIC_KEY}" > ~/.ssh/id_rsa.pub
           chmod 600 ~/.ssh/id_rsa.pub
 
-      - name: Configure Git
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "Github Actions"
-          echo "machine github.com login $GH_TOKEN" > ~/.netrc
-          chmod 600 ~/.netrc
-
       - name: Terraform Init
         run: terraform init
 
@@ -47,7 +40,9 @@ jobs:
           terraform plan
 
           if [ $? -eq 0 ]; then
+            git config --global user.name "Github Action"
+            git config --global user.email "action@github.com"
             git add .
-            git commit -a -m "Auto commit by Github Actions"
-            git push origin HEAD:main
+            git commit -m "Apply Terraform Changes"
+            git push origin HEAD:${{github.ref}}
           fi
