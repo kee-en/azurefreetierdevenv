@@ -37,7 +37,7 @@ jobs:
 
       - name: Terraform Apply
         run: |
-          terraform plan
+          terraform apply -auto-approve
 
           if [ $? -eq 0 ]; then
             git config --global user.name "Github Action"
