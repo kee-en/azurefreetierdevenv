@@ -36,4 +36,13 @@ jobs:
         run: terraform init
 
       - name: Terraform Apply
-        run: terraform destroy -auto-approve
+        run: |
+          terraform apply -auto-approve
+
+          if [ $? -eq 0 ]; then
+            git config --global user.email "actions@github.com"
+            git config --global user.name "Github Actions"
+            git add .
+            git commit -m "Auto commit by Github Actions"
+            git push
+          fi
