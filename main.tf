@@ -8,6 +8,13 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
+module "budget" {
+  source = "./modules/budget"
+  resource_name = var.resource_name
+  location = azurerm_resource_group.rg.location
+  resource_group_id = azurerm_resource_group.rg.id
+}
+
 module "network" {
   source              = "./modules/network"
   location            = azurerm_resource_group.rg.location
