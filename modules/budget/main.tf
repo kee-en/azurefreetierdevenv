@@ -5,7 +5,8 @@ resource "azurerm_consumption_budget_resource_group" "dev_budget" {
   time_grain = "Monthly"
 
   time_period {
-    start_date = "024-01-01T00:00:00Z"
+    start_date = "2024-01-01T00:00:00Z"
+    end_date = "2025-01-01T00:00:00Z"
   }
 
   notification {
